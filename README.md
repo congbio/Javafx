@@ -4,4 +4,4 @@ Structure of database <br>
 ![](https://github.com/congbio/Javafx/blob/main/images/dataphpadmin.png)
 ![](https://github.com/congbio/Javafx/blob/main/images/dataadmin.png)
 
-[Video demo <br>](https://drive.google.com/file/d/1oAOoFfgaz3WceDuMs27kHqDlrGElxheA/view?usp=sharing)
+[Video demo <br>](https://www.youtube.com/watch?v=A8-Jg_W_nsQ)
