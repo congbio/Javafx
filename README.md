@@ -12,24 +12,26 @@ Structure of database <br>
 
 **Các chức năng đã làm được**
 
-#Login <br>
-- Gạch đầu dòng thứ nhất
+- Login
+- Xóa phòng theo id trong danh sách
+- Sửa thông tin phòng trong danh sách
+- Thêm phòng vào danh sách
+**Các chức năng đang làm**
+- đăng ký tài khoản nếu chưa có tài khoản
+**Các chức năng dự định sẽ làm tiếp**
+- Chức năng gửi mail
+- Gửi mail sau  khi đang ký account
+- Tạo thêm một nút view show chi tiết sản phẩm
 
-- Gạch đầu dòng thứ hai
+**Vấn đề khó khăn**
+- Cách lấy dữ liệu và xử lý dữ liệu trong database.
+- Cú pháp Javafx khó
 
-Xóa sản phẩm trong danh sách
-Sửa sản phẩm trong danh sách
-Thêm sản phẩm vào danh sách
-Các chức năng đang làm
-Hiện tại em vừa hoàn thiện những chức năng đã làm trên
-Các chức năng dự định sẽ làm tiếp
-Tìm kiếm sản phẩm
-Hiển thị chi tiết sản phẩm sau khi ấn vào nút VIEW sản phẩm
-CSS Login và danh danh sách sản phẩm (tạo 1 file css riêng sau đó link vào)
-Vấn đề khó khăn
-Khi kết nối database để hiển thị dữ liệu trên giao diện
+**Vấn đề em tâm đắc nhất trong dự án**
 
-Vấn đề em tâm đắc nhất trong dự án
-Khi kết nối được database ở phần login thì em đã phát triển và show được dữ liệu ở trang list sản phẩm
-Chuyển Scene sau khi login vào trang danh sách sản phẩm
-Ngoài việc dùng Vbox và Hbox, em có học hỏi và tìm kiếm và biết cách sử dụng Grid
+- Khi kết nối được database truy xuất dữ liệu và show ra màn hình
+- Dùng Hbox VBox
+- Dùng Scane hoặc window dùng để chuyển trang
+- kết hợp database và javafx
+- cách fix lỗi, đọc lỗi
+
