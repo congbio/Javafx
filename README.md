@@ -1,9 +1,9 @@
 1. Structure of project<br>
 ![](https://github.com/congbio/Javafx/blob/main/images/folderstructure.png)
 <br>
-Structure of database <br>
+Structure of database 
 ![](https://github.com/congbio/Javafx/blob/main/images/dataphpadmin.png)
-<br>
+
 ![](https://github.com/congbio/Javafx/blob/main/images/dataadmin.png)
 <br><br>
 
