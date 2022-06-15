@@ -10,15 +10,16 @@ Structure of database <br>
 [Video demo <br>](https://www.youtube.com/watch?v=A8-Jg_W_nsQ)
 
 
-**Technical sử dụng**
+**Các chức năng đã làm được**
 
-###JavaFX
-###Database
-Các chức năng đã làm được
-Login
-Thêm sản phẩm vào danh sách
+#Login <br>
+- Gạch đầu dòng thứ nhất
+
+- Gạch đầu dòng thứ hai
+
 Xóa sản phẩm trong danh sách
 Sửa sản phẩm trong danh sách
+Thêm sản phẩm vào danh sách
 Các chức năng đang làm
 Hiện tại em vừa hoàn thiện những chức năng đã làm trên
 Các chức năng dự định sẽ làm tiếp
