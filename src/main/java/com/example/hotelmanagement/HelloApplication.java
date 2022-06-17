@@ -180,9 +180,9 @@ public class HelloApplication extends Application {
         fieldPass.getChildren().addAll(Apassword,pass);
         fieldPass.setSpacing(10);
         fieldPass.setAlignment(Pos.BASELINE_CENTER);
-        Button btnGoBack = new Button("GO HOME");
+        Button btnGoBack = new Button("Register");
         btnGoBack.setOnAction(actionEvent -> {
-            window.setScene(screenHompage);
+            window.setScene(screenregister);
         });
         Button btnLogin = new Button("LOGIN");
         btnLogin.setOnAction(actionEvent -> {
