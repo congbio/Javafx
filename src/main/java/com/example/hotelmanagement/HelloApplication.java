@@ -209,6 +209,13 @@ public class HelloApplication extends Application {
             LoginError();
         }
     }
+
+    private void LoginError() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("ERROR");
+        alert.setContentText("Login fail!");
+        alert.show();
+    }
     private void LoginSuccess() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Login");
@@ -216,13 +223,6 @@ public class HelloApplication extends Application {
         alert.setContentText("Login successfully!");
         alert.show();
     }
-    private void LoginError() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("ERROR");
-        alert.setContentText("Login fail!");
-        alert.show();
-    }
-
     void getThemdisplayRoom(VBox vBox, DBConnect conn) {
         ArrayList<Room> RoomList = conn.getRoom();
         this.addRoom(vBox, conn);
