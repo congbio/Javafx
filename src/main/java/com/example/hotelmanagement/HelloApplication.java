@@ -226,8 +226,6 @@ public class HelloApplication extends Application {
     void getThemdisplayRoom(VBox vBox, DBConnect conn) {
         ArrayList<Room> RoomList = conn.getRoom();
         this.addRoom(vBox, conn);
-
-
         for(int i = 0; i < RoomList.size(); ++i) {
             HBox hBoxRooms = new HBox();
             hBoxRooms.setSpacing(20.0);
@@ -296,8 +294,6 @@ public class HelloApplication extends Application {
         vBox.getChildren().add(btnadmin);
 
     }
-
-
 
     void addRoom(VBox vBox, DBConnect conn) {
         Label nameroom = new Label("Name");
