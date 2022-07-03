@@ -28,7 +28,7 @@ public class DBConnect {
             ResultSet result = this.con.prepareStatement(sql).executeQuery();
 
             while (result.next()) {
-                Room Room = new Room(result.getInt("id"), result.getString("name"), result.getFloat("price"), result.getString("description"));
+                Room Room = new Room(result.getInt("id"), result.getString("name"), result.getFloat("price"), result.getString("description"), result.getString("image"));
                 list.add(Room);
             }
             return list;
@@ -39,7 +39,7 @@ public class DBConnect {
 
 
     public void insertRoom(Room rm) {
-        String sql = "INSERT INTO room (name, price,description) VALUE ('" + rm.name + "','" + rm.price + "','" + rm.description + "')";
+        String sql = "INSERT INTO room (name, price,description,image) VALUE ('" + rm.name + "','" + rm.price + "','" + rm.description + "','" + rm.image + "')";
 
 
         try {
@@ -51,13 +51,13 @@ public class DBConnect {
     }
 
     public void updateRoom(Room rm) {
-        String sql = "UPDATE room SET name ='" + rm.name + "', price =" + rm.price + ", description ='" + rm.description + "' WHERE id = " + rm.id;
+        String sql = "UPDATE room SET name ='" + rm.name + "', price =" + rm.price + ", description ='" + rm.description + "', image= '" + rm.image + " WHERE id = " + rm.id;
+System.out.println(sql);
 
+            try {
+                this.con.prepareStatement(sql).executeUpdate();
 
-        try {
-            this.con.prepareStatement(sql).executeUpdate();
-
-        } catch (SQLException var4) {
+            } catch (SQLException var4) {
             throw new RuntimeException(var4);
         }
     }
