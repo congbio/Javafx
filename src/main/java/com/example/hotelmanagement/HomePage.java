@@ -124,45 +124,14 @@ public class HomePage extends Application {
 
 
 
-    void showListRoom(ArrayList<Room> listRoom,GridPane grid, Stage stage){
-        int ygrid =0;
-        int xgrid = 0;
-        for(int i = 0; i < listRoom.size(); i++){
-            VBox vbRoom = new VBox();
-            var btnView = new Button("View");
 
-
-            int finalI = i;
-            btnView.setOnAction(actionEvent -> {
-                viewDetail(stage, finalI);
-
-
-            });
-            Image image = new Image(listRoom.get(i).getImage());
-            ImageView imageView = new ImageView();
-            imageView.setImage(image);
-            imageView.setFitWidth(200);
-            imageView.setFitHeight(200);
-            Label lbName = new Label(listRoom.get(i).getName());
-            Label lbPrice = new Label(("Price: $"+String.valueOf(listRoom.get(i).getPrice())));
-
-            vbRoom.getChildren().addAll(imageView,lbName,lbPrice, btnView);
-            grid.add((vbRoom), xgrid, ygrid);
-            xgrid +=1;
-            if( xgrid == 3){
-                xgrid = 0;
-                ygrid +=1;
-            }
-
-        }
-    }
     @Override
     public void start(Stage stage) {
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.TOP_CENTER);
-        grid.setVgap(10);
-        grid.setHgap(10);
+        grid.setVgap(20);
+        grid.setHgap(20);
         DBConnect DB = new DBConnect();
         ArrayList<Room> listRoom = DB.getRoom();
 
