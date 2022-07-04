@@ -51,7 +51,7 @@ public class DBConnect {
     }
 
     public void updateRoom(Room rm) {
-        String sql = "UPDATE room SET name ='" + rm.name + "', price =" + rm.price + ", description ='" + rm.description + "', image= '" + rm.image + " WHERE id = " + rm.id;
+        String sql = "UPDATE room SET name ='" + rm.name + "', price =" + rm.price + ", description ='" + rm.description + "', image= '" + rm.image + "' WHERE id = " + rm.id;
 System.out.println(sql);
 
             try {
