@@ -13,7 +13,7 @@ public class DBConnect {
     public DBConnect() {
         try {
             this.con = DriverManager.getConnection("jdbc:mysql://localhost/db_hotel", "root", "");
-            System.out.println("Success");
+            System.out.println("Success connect database");
         } catch (SQLException var2) {
             System.out.println(var2.getMessage());
         }
@@ -52,7 +52,7 @@ public class DBConnect {
 
     public void updateRoom(Room rm) {
         String sql = "UPDATE room SET name ='" + rm.name + "', price =" + rm.price + ", description ='" + rm.description + "', image= '" + rm.image + "' WHERE id = " + rm.id;
-System.out.println(sql);
+
 
             try {
                 this.con.prepareStatement(sql).executeUpdate();
@@ -83,9 +83,6 @@ System.out.println(sql);
                 int id = result.getInt("id");
                 String name = result.getString("username");
                 String password = result.getString("pass");
-                System.out.println(id);
-                System.out.println(name);
-                System.out.println(password);
                 admins.add(new Admin(id, name, password));
             }
         } catch (SQLException e) {
@@ -93,5 +90,38 @@ System.out.println(sql);
         }
         return admins;
     }
+
+    public List<customers> getCustomers() {
+        ArrayList<customers> customers = new ArrayList<>();
+        try {
+            var result = this.con.prepareStatement("Select * from user").executeQuery();
+            while (result.next()) {
+                int id = result.getInt("id");
+                String name = result.getString("name");
+                String gmail = result.getString("gmail");
+                String password = result.getString("password");
+
+                customers.add(new customers(id, name, gmail,password));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return customers;
+    }
+
+    public void insertCustomer(customers cs) {
+        String sql = "INSERT INTO user (name, gmail,password) VALUE ('" + cs.cusName + "','" + cs.email + "','" + cs.password + "')";
+        System.out.println(sql);
+
+        try {
+            this.con.prepareStatement(sql).executeUpdate();
+            System.out.println("thêm thành công");
+
+        } catch (SQLException var4) {
+            throw new RuntimeException(var4);
+        }
+    }
+
+
 
 }
