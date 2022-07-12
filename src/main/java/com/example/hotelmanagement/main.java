@@ -19,120 +19,13 @@ import javafx.stage.Window;
 import java.util.ArrayList;
 
 public class main extends Application {
-    private Scene login, homePage,screenregister ;
+    private Scene login, homePage   ;
     public  TextField name, pass;
     private Stage window;
     private static final String EMPTY = "";
     private static final DBConnect con = new DBConnect();
     public static void main(String[] args) {
         launch(args);
-    }
-    private GridPane createRegistrationFormPane() {
-        // Instantiate a new Grid Pane
-        GridPane gridPane = new GridPane();
-
-        // Position the pane at the center of the screen, both vertically and horizontally
-        gridPane.setAlignment(Pos.CENTER);
-
-        // Set a padding of 20px on each side
-        gridPane.setPadding(new Insets(40, 40, 40, 40));
-
-        // Set the horizontal gap between columns
-        gridPane.setHgap(10);
-
-        // Set the vertical gap between rows
-        gridPane.setVgap(10);
-
-        // Add Column Constraints
-
-        // columnOneConstraints will be applied to all the nodes placed in column one.
-        ColumnConstraints columnOneConstraints = new ColumnConstraints(100, 100, Double.MAX_VALUE);
-        columnOneConstraints.setHalignment(HPos.RIGHT);
-
-        // columnTwoConstraints will be applied to all the nodes placed in column two.
-        ColumnConstraints columnTwoConstrains = new ColumnConstraints(200,200, Double.MAX_VALUE);
-        columnTwoConstrains.setHgrow(Priority.ALWAYS);
-
-        gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
-
-        return gridPane;
-    }
-
-    private void addUIControls(GridPane gridPane) {
-        // Add Header
-        Label headerLabel = new Label("Registration Form");
-        headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-        gridPane.add(headerLabel, 0,0,2,1);
-        GridPane.setHalignment(headerLabel, HPos.CENTER);
-        GridPane.setMargin(headerLabel, new Insets(20, 0,20,0));
-
-        // Add Name Label
-        Label nameLabel = new Label("Full Name : ");
-        gridPane.add(nameLabel, 0,1);
-
-        // Add Name Text Field
-        TextField nameField = new TextField();
-        nameField.setPrefHeight(40);
-        gridPane.add(nameField, 1,1);
-
-
-        // Add Email Label
-        Label emailLabel = new Label("Email ID : ");
-        gridPane.add(emailLabel, 0, 2);
-
-        // Add Email Text Field
-        TextField emailField = new TextField();
-        emailField.setPrefHeight(40);
-        gridPane.add(emailField, 1, 2);
-
-        // Add Password Label
-        Label passwordLabel = new Label("Password : ");
-        gridPane.add(passwordLabel, 0, 3);
-
-        // Add Password Field
-        PasswordField passwordField = new PasswordField();
-        passwordField.setPrefHeight(40);
-        gridPane.add(passwordField, 1, 3);
-
-        // Add Submit Button
-        Button submitButton = new Button("Submit");
-        submitButton.setPrefHeight(40);
-        submitButton.setDefaultButton(true);
-        submitButton.setPrefWidth(100);
-        gridPane.add(submitButton, 0, 4, 2, 1);
-        GridPane.setHalignment(submitButton, HPos.CENTER);
-        GridPane.setMargin(submitButton, new Insets(20, 0,20,0));
-
-        submitButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if(nameField.getText().isEmpty()) {
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Form Error!", "Please enter your name");
-                    return;
-                }
-                if(emailField.getText().isEmpty()) {
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Form Error!", "Please enter your email id");
-                    return;
-                }
-                if(passwordField.getText().isEmpty()) {
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Form Error!", "Please enter a password");
-                    return;
-                }
-
-                showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(), "Registration Successful!", "Welcome " + nameField.getText());
-            }
-
-
-        });
-    }
-
-    private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.initOwner(owner);
-        alert.show();
     }
 
     Scene showLogin(){
@@ -152,17 +45,13 @@ public class main extends Application {
         fieldPass.setSpacing(10);
         fieldPass.setAlignment(Pos.BASELINE_CENTER);
 
-        Button btnGoBack = new Button("Register");
-        btnGoBack.setOnAction(actionEvent -> {
-            window.setScene(screenregister);
-            window.centerOnScreen();
-        });
+
         Button btnLogin = new Button("LOGIN");
         btnLogin.setOnAction(actionEvent -> {
             this.checkLogin();
         });
         HBox btnLoginPage = new HBox();
-        btnLoginPage.getChildren().addAll(btnLogin, btnGoBack );
+        btnLoginPage.getChildren().addAll(btnLogin );
         btnLoginPage.setSpacing(10);
         btnLoginPage.setAlignment(Pos.BASELINE_CENTER);
         loginPage.getChildren().addAll(labelLogin,fieldName,fieldPass,btnLoginPage);
@@ -197,13 +86,34 @@ public class main extends Application {
         alert.show();
     }
 
-    Scene showProduct(){
-        VBox home = new VBox();
-        Label labelProduct =new Label("Danh Sách Phòng Khách Sạn ");
-        labelProduct.setAlignment(Pos.CENTER);
-        labelProduct.setStyle("-fx-font-size: 20px; -fx-text-fill: cyan;");
-        ArrayList<Room> ntList = con.getRoom();
-        GridPane grid =new GridPane();
+    void  addRoom(TextField tfName, TextField tfPrice,TextField tfDescription, TextField tfImages){
+        String name = tfName.getText();
+        Float price = Float.parseFloat(tfPrice.getText());
+        String description = tfDescription.getText();
+
+
+        String images = tfImages.getText();
+
+        if (!name.equals(EMPTY) && !price.equals(EMPTY)  && !description.equals(EMPTY)  && !images.equals(EMPTY) ) {
+            try {
+                System.out.println("Thành công");
+                con.insertRoom(new Room(name, price, description, images));
+                homePage = showProduct();
+                window.setScene(homePage);
+                window.centerOnScreen();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+            return;
+        }
+        var alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setContentText("Please fill all blank!");
+        alert.showAndWait();
+    }
+    void  FormInsertRoom(Button btnAdd,GridPane grid){
+
+
         grid.setAlignment(Pos.CENTER);
         grid.setVgap(10);
         grid.setHgap(10);
@@ -226,35 +136,23 @@ public class main extends Application {
         grid.add(new Label("Images:"), 3, 0);
         var tfImages = new TextField();
         grid.add(tfImages, 3, 1);
-
-        var btnAdd = new Button("Add");
         btnAdd.setPadding(new Insets(5, 15, 5, 15));
         btnAdd.setOnAction(e -> {
-            String name = tfName.getText();
-            Float price = Float.parseFloat(tfPrice.getText());
-            String description = tfDescription.getText();
+            addRoom(  tfName,   tfPrice,  tfDescription,   tfImages);
 
-
-            String images = tfImages.getText();
-
-            if (!name.equals(EMPTY) && !price.equals(EMPTY)  && !description.equals(EMPTY)  && !images.equals(EMPTY) ) {
-                try {
-                    System.out.println("Thành công");
-                    con.insertRoom(new Room(name, price, description, images));
-                    homePage = showProduct();
-                    window.setScene(homePage);
-                    window.centerOnScreen();
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
-                return;
-            }
-            var alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill all blank!");
-            alert.showAndWait();
         });
         grid.add(btnAdd, 5, 1);
+    }
+    Scene showProduct(){
+        Label labelProduct =new Label("Danh Sách Phòng Khách Sạn ");
+        labelProduct.setAlignment(Pos.CENTER);
+        labelProduct.setStyle("-fx-font-size: 20px; -fx-text-fill: cyan;");
+        VBox home = new VBox();
+        var btnAdd = new Button("Add");
+        GridPane grid =new GridPane();
+        FormInsertRoom(btnAdd,grid);
+        ArrayList<Room> ntList = con.getRoom();
+
 
 
 //Show
@@ -263,8 +161,8 @@ public class main extends Application {
             System.out.print(image);
             ImageView imageView = new ImageView();
             imageView.setImage(image);
-            imageView.setFitWidth(50);
-            imageView.setFitHeight(50);
+            imageView.setFitWidth(80);
+            imageView.setFitHeight(80);
 
             grid.add(new Label(ntList.get(i).getName()), 0, i + 2);
             grid.add(new Label("" +ntList.get(i).getPrice()), 1, i + 2);
@@ -275,12 +173,13 @@ public class main extends Application {
 
 // Update
             var btnUpdate = new Button("Update");
+            btnUpdate.setStyle("-bx-base:#961276;");
             btnUpdate.setId(String.valueOf(i));
             ArrayList<Room> finalNtList = ntList;
             btnUpdate.setOnAction(e -> {
                 btnAdd.setVisible(false);
                 int idNew = Integer.parseInt(btnUpdate.getId());
-                System.out.println(idNew);
+
 
                 TextField name = (TextField) grid.getChildren().get(1);
                 name.setText(finalNtList.get(idNew).getName());
@@ -366,10 +265,10 @@ public class main extends Application {
     public void start(Stage primaryStage) {
         homePage = this.showProduct();
         login = this.showLogin();
-        GridPane gridPane = createRegistrationFormPane();
 
-        this.addUIControls(gridPane);
-        screenregister = new Scene(gridPane,400,400);
+
+
+
         window = primaryStage;
         window.setScene(login);
         window.show();

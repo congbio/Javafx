@@ -28,7 +28,7 @@ public class DBConnect {
             ResultSet result = this.con.prepareStatement(sql).executeQuery();
 
             while (result.next()) {
-                Room Room = new Room(result.getInt("id"), result.getString("name"), result.getFloat("price"), result.getString("description"), result.getString("image"));
+                Room Room = new Room(result.getInt("idRoom"), result.getString("name"), result.getFloat("price"), result.getString("description"), result.getString("image"));
                 list.add(Room);
             }
             return list;
@@ -51,7 +51,7 @@ public class DBConnect {
     }
 
     public void updateRoom(Room rm) {
-        String sql = "UPDATE room SET name ='" + rm.name + "', price =" + rm.price + ", description ='" + rm.description + "', image= '" + rm.image + "' WHERE id = " + rm.id;
+        String sql = "UPDATE room SET name ='" + rm.name + "', price =" + rm.price + ", description ='" + rm.description + "', image= '" + rm.image + "' WHERE idRoom = " + rm.id;
 
 
             try {
@@ -63,7 +63,7 @@ public class DBConnect {
     }
 
     public void deleteRoom(int id) {
-        String sql = "DELETE FROM room WHERE id = " + id;
+        String sql = "DELETE FROM room WHERE idRoom = " + id;
 
 
         try {
@@ -91,6 +91,9 @@ public class DBConnect {
         return admins;
     }
 
+
+
+
     public List<customers> getCustomers() {
         ArrayList<customers> customers = new ArrayList<>();
         try {
@@ -111,6 +114,23 @@ public class DBConnect {
 
     public void insertCustomer(customers cs) {
         String sql = "INSERT INTO user (name, gmail,password) VALUE ('" + cs.cusName + "','" + cs.email + "','" + cs.password + "')";
+        System.out.println(sql);
+
+        try {
+            this.con.prepareStatement(sql).executeUpdate();
+            System.out.println("thêm thành công");
+
+        } catch (SQLException var4) {
+            throw new RuntimeException(var4);
+        }
+    }
+    public void insertBooking(BookingRoom br) {
+        String sql = "INSERT INTO bookingroom (username,phoneNumber ," +
+                "dateInput,dateOutput,idRoom) VALUE " +
+                "('" + br.username + "','" + br.phoneNumber +"','" + br.email +
+                "','" + br.dateInput + "' ,'" + br.dateOutput +
+                "'," + br.idRoom + ")";
+
         System.out.println(sql);
 
         try {
